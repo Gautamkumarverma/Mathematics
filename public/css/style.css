@@ -1,0 +1,46 @@
+
+
+/* navbar */
+.navbar{
+    height: 5rem;
+    
+}
+.nav-Icon{
+    color: red;
+    font-weight:500;
+    text-align: center;
+}
+.box{
+    width: 500px;
+    height: 75px;
+    /* border: 5px solid !important; */
+    border-radius:  10px 0 10px 0;
+    
+}
+/* body{
+    background-color: rgb(15, 27, 88) !important;
+} */
+
+.homePage{
+    text-align: center;
+    margin-top: 50px;
+}
+
+   /* css for student */
+
+.stuContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.stuBox{
+    margin-bottom: 40px;
+    margin-right: 80px;
+}
+.deletebtn{
+    background-color: red !important;
+    border: 2px solid black !important;
+    border-radius: 5px !important;
+}

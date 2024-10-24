@@ -1,0 +1,28 @@
+<% layout('/layouts/boilerplate') -%>
+
+<body>
+    <h1>PDF Upload and Viewer</h1>
+
+    <!-- Admin PDF upload section -->
+    <form    action="/upload" method="POST" id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="pdfUpload"  name="pdf1"/>
+        <button type="submit">Upload PDF</button>
+    </form>
+
+    <!-- PDF Viewer -->
+    <canvas id="pdfViewer"></canvas>
+     <ul>
+ <%  for(let listing of allListings){ %>
+    <div class="box border border-danger">
+            <%= listing.title %><br>
+          <a href="/<%= listing.pdflink %>" download>
+            Download <%= listing.title %>
+          </a> &nbsp;&nbsp;
+          <button>Delete</button>
+    </div>
+    <br>
+       
+   <% }%>
+</ul>
+
+</body>

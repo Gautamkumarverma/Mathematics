@@ -1,0 +1,26 @@
+
+<% layout('/layouts/boilerplate') -%>
+<body>
+    <h1 style="text-align: center;">All Students are here</h1>
+   <div class="stuContainer ">  
+
+    <% for (let student of allStudents) { %>
+        
+      
+        <div class="card stuBox" style="width: 18rem;">
+            <img src="<%=student.image  %>" class="card-img-top" alt="student image" height="200px" width="200px">
+            <div class="card-body">
+               
+                <p class="card-text"> <%= student.name%></p>
+              </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Class: <%= student.class %></li>
+              <li class="list-group-item">Batch: <%= student.batch %></li>
+
+            </ul>
+           
+          </div>
+        <br>
+    <% } %>
+  </div>
+</body>
