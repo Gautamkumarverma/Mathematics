@@ -1,14 +1,18 @@
 
 <% layout('/layouts/boilerplate') -%>
 <body>
-    <h1 style="text-align: center;">All Students are here</h1>
-   <div class="stuContainer ">  
+  
+    <div style="text-align: center; margin-top: 20px;">
+      <h1>Brilliant Student </h1>
+      <h5>Mathematic Team Hazaribagh ,jharkhand</h5>
+    </div>
+   <div class="stuContainer  ">  
 
     <% for (let student of allStudents) { %>
         
       
-        <div class="card stuBox" style="width: 18rem;">
-            <img src="<%=student.image  %>" class="card-img-top" alt="student image" height="200px" width="200px">
+        <div class="card stuBox border border-danger" style="width: 18rem;">
+            <img src="<%=student.image  %>" class="card-img-top stuimage" alt="student image" height="210px" width="250px">
             <div class="card-body">
                
                 <p class="card-text"> <%= student.name%></p>
@@ -24,3 +28,4 @@
     <% } %>
   </div>
 </body>
+

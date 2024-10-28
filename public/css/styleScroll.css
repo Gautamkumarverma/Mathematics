@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+.contaScroll{
+     background-color: #000000;
+     overflow: hidden;
+     border-radius: 10px;
+}
+
+.contaScroll .text{
+   color: #0fc118; 
+   position: relative;
+   font-size: 30px;
+   font-weight: 600;
+
+
+}
+.contaScroll .text.first-text{
+    color: #fff;
+ }
+ .text.sec-text:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:100%;
+    width: 100%;
+    background-color: rgb(20, 16, 16);
+    border-left: 2px solid #0fc118;
+    animation: animate 4s steps(12)  infinite; 
+
+ }
+ @keyframes animate{
+    40%,60%{
+        left:Calc( 100% + 4px);
+    }
+    100%{
+        left: 0%;
+    }
+ }

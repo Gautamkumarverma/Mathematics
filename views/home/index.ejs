@@ -1,28 +1,47 @@
 <% layout('/layouts/boilerplate') -%>
 
-<body>
-    <h1>PDF Upload and Viewer</h1>
+  <body >
+    <h2 style="text-align: center; margin-top: 50px;">Add doucuments</h2>
+    <div class="row mt-4">
+      <div class="col-8 offset-2">
 
-    <!-- Admin PDF upload section -->
-    <form    action="/upload" method="POST" id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="pdfUpload"  name="pdf1"/>
-        <button type="submit">Upload PDF</button>
-    </form>
 
-    <!-- PDF Viewer -->
-    <canvas id="pdfViewer"></canvas>
-     <ul>
- <%  for(let listing of allListings){ %>
-    <div class="box border border-danger">
-            <%= listing.title %><br>
-          <a href="/<%= listing.pdflink %>" download>
-            Download <%= listing.title %>
-          </a> &nbsp;&nbsp;
-          <button>Delete</button>
-    </div>
-    <br>
+    <form action="/upload" method="POST" id="uploadForm" enctype="multipart/form-data">
+      <div class="mb-5">
+        <label for="title"  class="form-table">Title</label>
+        <br>
+        <input
+          type="text"
+          name="title"
+          placeholder="Add pdf  title"
+          class="form-control"
+        />
+      </div>
+      <div class="mb-5">
+        <div>
+          <input type="file" id="pdfUpload" name="pdf1"  class="form-control"/> <br>
+          <button type="submit" class="margin-top:4px">Upload PDF</button>
+        </div>
        
-   <% }%>
-</ul>
+      </div>
+      <div class="mb-5">
+        <label for="image"  class="form-table">Upload an image</label> <br>
+            <input type="file" name="image"   class="form-control"/>
+      </div>
+      <div class="row">
 
-</body>
+      
+      <div class="mb-5 col-md-5">
+        <label for="class"  class="form-table"> Enter class</label> <br>
+        <input type="text" name="class"   class="form-control">
+      </div>
+      <div class="mb-5 col-md-7"  >
+        <label for="subject"  class="form-table"> Enter sub name</label><br>
+        <input type="text" name="subject"   class="form-control">
+      </div>
+    </div>
+      <button class="btn btn-dark mb-5">Submit</button>
+    </form>
+  </div>
+  </div>
+  </body>

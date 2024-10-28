@@ -1,5 +1,8 @@
 
-
+.container{
+    flex: 1;
+    min-height: 100vh;
+}
 /* navbar */
 .navbar{
     height: 5rem;
@@ -10,37 +13,144 @@
     font-weight:500;
     text-align: center;
 }
+.nav-link{
+    color: black !important;
+}
 .box{
-    width: 500px;
-    height: 75px;
+    width: 400px;
+  
     /* border: 5px solid !important; */
     border-radius:  10px 0 10px 0;
     
 }
-/* body{
-    background-color: rgb(15, 27, 88) !important;
-} */
+.pdfContainer{
+    background-color: rgb(80, 80, 121);
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
 
+    /* <----Home page css----> */
 .homePage{
     text-align: center;
     margin-top: 50px;
+}
+.adminphoto{
+    display: flex;
+    flex-wrap: wrap;
 }
 
    /* css for student */
 
 .stuContainer{
+    margin-top: 110px !important;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
 }
+.stuBox:hover{
+    transform: scale(1.02) !important;
+} 
+.stuBox{
+  transition: transform .5s;
 
+}
 .stuBox{
     margin-bottom: 40px;
     margin-right: 80px;
+    border: 4px solid !important;
+   box-shadow: 2px 4px 8px red;
+}
+
+           
+.stuimage{
+    border-radius: 50%;
+    border: 4px solid  green ;
 }
 .deletebtn{
     background-color: red !important;
     border: 2px solid black !important;
     border-radius: 5px !important;
+}
+
+
+  /* home page  */
+  .adminphoto{
+    display:flex;
+    margin-top: 100px;
+  }
+  
+  .adminphoto img{
+     border: 2px solid green;
+     border-radius: 100px 100px 0 0;
+   
+  }
+
+  /* footer */
+  .f-info-links a{
+   text-decoration: none;
+   color: black;
+  }
+  .f-info-links:hover{
+    text-decoration: underline;
+  }
+  .f-info{
+    text-align: center;
+    display: flex;
+    height: 12rem;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .f-info-socials ,
+  .f-info-links,.f-info-brand{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.f-info-socials i{
+    font-size: 2rem;
+    margin-right: 1rem;
+    
+}
+.f-info-links a{
+    margin-right: 1rem;
+}
+.footerh{
+    animation: headAnimate 3s ease-in 1s 2 normal;
+    animation-iteration-count: infinite;
+    font-family: cursive;
+}
+@keyframes headAnimate {
+    0%{
+       color: black;
+    }
+    50%{
+       color: green;
+    }
+    100%{
+        color: red;
+    }
+}
+
+
+/* <-----subscriber-----> */
+.subsSec{
+
+    margin-top: 100px;
+    margin-bottom: 50px;
+  background-color: pink;
+  border: 2px solid red;
+  border-radius: 10px;
+  
+  
+}
+.subsSecInner{
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-around;
+     align-items: center;
+     margin-bottom: 2rem;
 }

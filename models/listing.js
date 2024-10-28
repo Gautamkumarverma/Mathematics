@@ -4,11 +4,22 @@ const Schema = mongoose.Schema;
 const listingSchema = new Schema({
   title: {
     type: String,
-    require: true,
+    required: true,
   },
   pdflink: {
     type: String,
     default: "uploads\\1729673427565-MST_II schedule_IIIrd_vth sem.pdf",
+  },
+  imageLink: {
+    type: String,
+  },
+  class: {
+    type: String,
+    required: true,
+  },
+  subject: {
+    type: String,
+    required: true,
   },
 });
 

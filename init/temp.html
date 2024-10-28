@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     
+<!-- youtube srcbcriber -->
+  <h1>Youtube Subscriber</h1>
+  <div id="subCount"> </div>
+  <div id="viewCount"></div>
+  <div id="videoCount"></div>
+
+
+    <script>
+// ge subscriber
+                const ytKey ='AIzaSyB6HVxN1_ZCH8m_l8mAS1vArCCsfVMU9l0';
+                const ytUser = 'UCQgDZRbDgl6JJfS9NzSyG6Q';
+                const subCount = document.getElementById('subCount');
+              const viewCount = document.getElementById('viewCount');
+            const videoCount = document.getElementById('videoCount');
+
+
+                    let getSubscribers = ()=>{
+                      fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${ytUser}&key=${ytKey}`)
+                      .then(response =>{
+                        return response.json();
+                      }).then(data =>{
+                        console.log(data);
+                        subCount.innerHTML =  data["items"][0].statistics.subscriberCount;
+                        viewCount.innerHTML =  data["items"][0].statistics.viewCount;
+                        videoCount.innerHTML = data["items"][0].statistics.videoCount;
+                      
+                      })
+
+               }
+               getSubscribers();
+    </script>
+<!-- 
+<h1>PDF Upload and Viewer</h1>
+
+
+<form action="/upload" method="POST" id="uploadForm" enctype="multipart/form-data">
+  <input type="file" id="pdfUpload" name="pdf1" />
+  <button type="submit">Upload PDF</button>
+</form>
+ 
+<canvas id="pdfViewer"></canvas>
+<div class="pdfContainer">
+   for(let listing of allListings){ 
+    <div class="box border border-danger">
+      = listing.title ><br>
+        <a href="/ listing.pdflink " download>
+          Download  listing.title 
+        </a> &nbsp;&nbsp;
+        <button>Delete</button>
+    </div>
+    <br>
+
+     }
+  </div> -->
+</body>
+</html>

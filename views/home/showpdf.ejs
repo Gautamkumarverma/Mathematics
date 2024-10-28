@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Show all Pdf</h1>
+
+    <div class="pdfContainer">
+      <%  for(let listing of allListings){ %>
+         <div class="box border border-danger">
+           <%= listing.title %><br>
+         
+           <a href="<%= listing.pdflink %>" >
+            Download
+          </a>
+           &nbsp;&nbsp;
+             <button>Delete</button>
+         </div>
+         <br>
+     
+         <% }%>
+       </div>
+</body>
+</html>
