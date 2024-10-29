@@ -154,3 +154,20 @@
      align-items: center;
      margin-bottom: 2rem;
 }
+
+   /* showpdf lavel 1 */
+.b-buttnOuter{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+.b-buttn{
+     height: 200px;
+     width: 200px;
+     margin-bottom: 50px;
+     text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: rgb(46, 193, 141);
+}

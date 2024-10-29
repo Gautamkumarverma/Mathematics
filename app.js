@@ -49,16 +49,24 @@ app.post(
     console.log("class ", classField);
     console.log("subject ", subject);
 
-    const pdfFile = req.files["pdf1"] ? req.files["pdf1"][0] : null;
-    const imageFile = req.files["image"] ? req.files["image"][0] : null;
+    // const pdfFile = req.files["pdf1"] ? req.files["pdf1"][0] : null;
+    // const imageFile = req.files["image"] ? req.files["image"][0] : null;
+    // <-----------changes are here------------------------------>
+    const pdfFile = req.files["pdf1"]
+      ? `/uploads/${req.files["pdf1"][0].filename.replace(/\\/g, "/")}`
+      : null;
+    const imageFile = req.files["image"]
+      ? `/uploads/${req.files["image"][0].filename.replace(/\\/g, "/")}`
+      : null;
+
     console.log(pdfFile); //see printing to check the link
     const sampleListing = new Listing({
       title: title,
 
       class: classField,
       subject: subject,
-      pdflink: pdfFile ? pdfFile.path : null,
-      imageLink: imageFile ? imageFile.path : null,
+      pdflink: pdfFile ? pdfFile : null,
+      imageLink: imageFile ? imageFile : null,
     });
     sampleListing.save();
 
@@ -66,9 +74,41 @@ app.post(
   }
 );
 app.get("/listings/show", async (req, res) => {
-  console.log("great show pdf called");
-  const allListings = await Listing.find({});
-  res.render("home/showpdf.ejs", { allListings });
+  res.render("home/showpdflavel1.ejs");
+});
+
+app.get("/class", async (req, res) => {
+  const selectedClass = req.query.class;
+  const pdfClass = "class" + selectedClass + "th";
+  let allListings = null;
+  // Based on the selected class, fetch and render the appropriate data
+  switch (selectedClass) {
+    case "10":
+      // Fetch data for Class 10
+      console.log("class 10 me yaya");
+      allListings = await Listing.find({ class: pdfClass });
+      res.render("home/showpdf.ejs", { allListings });
+      break;
+    case "11":
+      console.log("class 11 me yaya");
+      allListings = await Listing.find({ class: pdfClass });
+      res.render("home/showpdf.ejs", { allListings });
+      break;
+    case "12":
+      // Fetch data for Class 12
+
+      allListings = await Listing.find({ class: pdfClass });
+      res.render("home/showpdf.ejs", { allListings });
+      break;
+    case "bca":
+      // Fetch data for BCA
+      console.log("class BCA me yaya");
+      allListings = await Listing.find({ class: pdfClass });
+      res.render("home/showpdf.ejs", { allListings });
+      break;
+    default:
+      res.status(404).send("Class not found");
+  }
 });
 
 app.get("/", (req, res) => {

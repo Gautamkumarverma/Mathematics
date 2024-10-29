@@ -1,0 +1,26 @@
+<% layout('/layouts/boilerplate') -%>
+
+<body>
+    <div class="b-buttnOuter">
+        <div class="b-buttn" data-class="10" onclick="navigate(this)">
+            Class 10th
+        </div>
+        <div class="b-buttn" data-class="11" onclick="navigate(this)">
+            Class 11th
+        </div>
+        <div class="b-buttn" data-class="12" onclick="navigate(this)">
+            Class 12th
+        </div>
+        <div class="b-buttn" data-class="bca" onclick="navigate(this)">
+            BCA
+        </div>
+    </div>
+
+    <script>
+        function navigate(element) {
+            const selectedClass = element.getAttribute('data-class');
+            window.location.href = `/class?class=${selectedClass}`;
+        }
+    </script>
+</body>
+</html>
