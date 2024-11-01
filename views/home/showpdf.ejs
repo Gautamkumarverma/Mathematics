@@ -1,27 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Show all Pdf</h1>
+<% layout("/layouts/boilerplate") -%>
 
-    <div class="pdfContainer">
-      <%  for(let listing of allListings){ %>
-         <div class="box border border-danger">
-           <%= listing.title %><br>
-         
-           <a href="<%= listing.pdflink %>" >
-            Download
-          </a>
-           &nbsp;&nbsp;
-             <button>Delete</button>
-         </div>
-         <br>
-     
-         <% }%>
-       </div>
-</body>
-</html>
+<h1 class="allPdfh1" >Show all Pdf</h1>
+
+<div class="outerPdfContainer">
+
+  <% if(allMathsListings && allMathsListings.length > 0) { %>
+    <h4>Maths Pdfs:</h4>
+    <div class="pdfContainer2">
+      <% for(let listing of allMathsListings) { %>
+        <div class="box border border-danger"  onclick="openPdf('<%= listing.pdflink %>')">
+          <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
+          <a href="<%= listing.pdflink %>">Download</a>
+          &nbsp;&nbsp;
+          <button class="btn btn-dark dleteBtn"  onclick="event.stopPropagation(); deletePdf('<%= listing._id %>')">Delete</button>
+        </div>
+      <% } %>
+    </div>
+   
+  <% } %>
+
+  <% if(allPhysicsListings && allPhysicsListings.length > 0) { %>
+    <hr>
+    <h4>Physics Pdfs:</h4>
+    <div class="pdfContainer2">
+      <% for(let listing of allPhysicsListings) { %>
+        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink %>')">
+          <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
+          <a href="<%= listing.pdflink %>">Download</a>
+          &nbsp;&nbsp;
+          <button class="btn btn-dark dleteBtn" onclick="event.stopPropagation(); deletePdf('<%= listing._id %>')">Delete</button>
+        </div>
+      <% } %>
+    </div>
+ 
+  <% } %>
+
+  <% if(allChemistryListings && allChemistryListings.length > 0) { %>
+    <hr>
+    <h4>Chemistry Pdfs:</h4>
+    <div class="pdfContainer2">
+      <% for(let listing of allChemistryListings) { %>
+        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink %>')">
+          <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
+          <a href="<%= listing.pdflink %>">Download</a>
+          &nbsp;&nbsp;
+          <button class="btn btn-dark  dleteBtn"  onclick="event.stopPropagation(); deletePdf('<%= listing._id %>')">Delete</button>
+        </div>
+      <% } %>
+    </div>
+  
+  <% } %>
+
+  <% if(allBiologyListings && allBiologyListings.length > 0) { %>
+    <hr>
+    <h4>Biology Pdfs:</h4>
+    <div class="pdfContainer2">
+      <% for(let listing of allBiologyListings) { %>
+        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink %>')">
+          <%= listing.title %><br><i  class="fa-solid fa-file-pdf" style="color: black;"></i>
+          <a href="<%= listing.pdflink %>">Download</a>
+          &nbsp;&nbsp;
+          <button class="btn btn-dark dleteBtn"  onclick="event.stopPropagation(); deletePdf('<%= listing._id %>')">Delete</button>
+        </div>
+      <% } %>
+    </div>
+    
+  <% } %>
+
+</div>
+<script>
+    // Function to open the PDF link
+    function openPdf(link) {
+               window.open(link, "_blank");
+    }
+    function deletePdf(id){
+     // Redirect to the delete route with the particular PDF ID
+           window.location.href = `/deletePdf/${id}`;
+    }
+</script>
+<style>
+  .box {
+    width: 400px;
+   
+  }
+  .pdfContainer2 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .pdfContainer2 > div {
+    margin: 10px;
+    background-color: rgb(168, 141, 194);
+  }
+  .allPdfh1{
+    text-align: center;
+    font-family: cursive;
+    margin-top: 50px;
+     font-weight: 600;
+    
+  }
+ .outerPdfContainer{
+  background: linear-gradient(135deg, #318dae, #7daa84);
+  color: #a70404;
+  border-radius: 10px;
+ }
+ .dleteBtn{
+margin-bottom: 3px;
+  margin-left: 150px;
+ }
+</style>

@@ -4,15 +4,19 @@
     <div class="b-buttnOuter">
         <div class="b-buttn" data-class="10" onclick="navigate(this)">
             Class 10th
+            <span class="popup">Click me</span>
         </div>
         <div class="b-buttn" data-class="11" onclick="navigate(this)">
             Class 11th
+            <span class="popup">Click me</span>
         </div>
         <div class="b-buttn" data-class="12" onclick="navigate(this)">
             Class 12th
+            <span class="popup">Click me</span>
         </div>
         <div class="b-buttn" data-class="bca" onclick="navigate(this)">
             BCA
+            <span class="popup">Click me</span>
         </div>
     </div>
 
@@ -22,5 +26,34 @@
             window.location.href = `/class?class=${selectedClass}`;
         }
     </script>
+
+    <style>
+        .b-buttn {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .popup {
+            visibility: hidden;
+            width: 100px;
+            background-color: #ded51f;
+            color: #170ce9;
+            text-align: center;
+            padding: 5px;
+             border-radius: 5px;
+           position: absolute;
+            bottom: 50%; /* Position above the button */
+             left: 50%;
+           transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1; 
+        }
+
+        .b-buttn:hover .popup {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 </body>
 </html>
