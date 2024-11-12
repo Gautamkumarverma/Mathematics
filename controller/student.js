@@ -30,12 +30,13 @@ module.exports.newStudent = (req, res) => {
 module.exports.addStudent = async (req, res) => {
   let url = req.file.path;
   let filename = req.file.filename;
-
+  console.log(url, "...", filename);
   let student = new Student(req.body.student);
   student.image = { url, filename };
   console.log("image url", student.image.url); // Check the image URL
 
   await student.save();
+
   req.flash("success", "student added successfully!");
   res.redirect("/students");
 };

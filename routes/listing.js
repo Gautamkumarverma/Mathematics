@@ -9,8 +9,8 @@ const { isLoggedIn } = require("../middleware.js");
 const listingController = require("../controller/listing.js");
 
 const multer = require("multer");
-const { pdfStorage } = require("../cloud_Config.js");
-const upload = multer({ pdfStorage });
+const { Storage } = require("../cloud_Config.js");
+const upload = multer({ Storage });
 
 const validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body.listing);

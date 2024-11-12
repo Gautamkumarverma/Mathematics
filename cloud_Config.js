@@ -8,21 +8,12 @@ cloudinary.config({
 });
 
 // Storage for images
-const imageStorage = new CloudinaryStorage({
-  cloudinary,
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
   params: {
-    folder: "mathematics_DEV/image_files", // Folder for images
-    allowed_formats: ["jpg", "png", "jpeg"],
+    folder: "mathematics_DEV",
+    allowed_formats: ["png", "jpg", "jpeg", "pdf"], // Allow both images and PDFs
   },
 });
 
-// Storage for PDF files
-const pdfStorage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "mathematics_DEV/pdf_files", // Folder for PDF files
-    allowed_formats: ["pdf"],
-  },
-});
-
-module.exports = { cloudinary, imageStorage, pdfStorage };
+module.exports = { cloudinary, storage };

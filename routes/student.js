@@ -7,8 +7,8 @@ const Student = require("../models/students.js");
 const studentController = require("../controller/student.js");
 
 const multer = require("multer");
-const { imageStorage } = require("../cloud_Config.js");
-const upload = multer({ imageStorage });
+const { storage } = require("../cloud_Config.js");
+const upload = multer({ storage });
 
 const validateStudent = (req, res, next) => {
   const { error } = studentSchema.validate(req.body);
