@@ -8,12 +8,8 @@ const listingSchema = new Schema({
     required: true,
   },
   pdflink: {
-    type: String,
-    default: "uploads\\1729673427565-MST_II schedule_IIIrd_vth sem.pdf",
-  },
-  imageLink: {
-    type: String,
-    required: true,
+    url: String,
+    filename: String,
   },
   class: {
     type: String,

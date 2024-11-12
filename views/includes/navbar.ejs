@@ -13,9 +13,21 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link"  href="/listings/home">Home</a>
-        <a class="nav-link" href="/">Cources</a>
-        <a class="nav-link" href="/listings/show">All Documents</a>
-        <a class="nav-link" href="/listings/Students">Students</a>
+        <a class="nav-link" href="/listings/addpdf">Cources</a>
+        <a class="nav-link" href="/listings/level1/show">All Documents</a>
+        <a class="nav-link" href="/Students">Students</a>
+      </div>
+      <div class="navbar-nav ms-auto ">
+       <% if(!currUser){ %>
+          <a class="nav-link"  href="/signup">SignUp</a>
+          <a class="nav-link" href="/login">Login</a>
+      <%  }%>
+      <% if(currUser){ %>
+          <a class="nav-link" href="/logout">Log Out</a>
+     <%   }%>
+     
+        
+
       </div>
     </div> 
   </div>

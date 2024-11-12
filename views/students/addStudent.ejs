@@ -1,0 +1,75 @@
+<% layout('/layouts/boilerplate') -%>
+
+    <body>
+        <div class="row">
+            <div class="col-8 offset-2">
+
+
+                <form action="/students/add" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
+                    <h1>Great gautam kumar</h1>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" name="student[name]" placeholder="Enter name" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please enter student name!
+                        </div>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <label for="image" class="form-label">Upload Student Image:</label>
+                        <input type="file" name="student[image]"  class="form-control" required>
+
+                         <div class="invalid-feedback">
+                            Please upload image!
+                        </div>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <label for="marks" class="form-label">Marks:</label>
+                        <input type="number" name="student[marks]" placeholder="Enter marks" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please enter marks!
+                        </div>
+                    </div>
+                    <div class="row">
+                       
+                        <div class="mb-3 col-md-6">
+                            <label for="class" class="form-label">Class:</label>
+                            <input type="text" name="student[class]" placeholder="Enter class" class="form-control" required>
+                             <div class="invalid-feedback">
+                            Please enter student name!
+                        </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="batch" class="form-label">Batch:</label>
+                            <input type="text" name="student[batch]" placeholder="Enter batch" class="form-control" required>
+                             <div class="invalid-feedback">
+                            Please enter batch 2022-22!
+                        </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="board" class="form-label">Board:</label>
+                            <input type="text" name="student[board]" placeholder="Enter board" class="form-control" required>
+                             <div class="invalid-feedback">
+                            Please enter Board name!
+                        </div>
+                        </div>
+
+                        <div class="mb-3 col-md-6">
+                            <label for="city" class="form-label">city:</label>
+                            <input type="text" name="student[city]" placeholder="Enter city" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please enter city!
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark">Add</button>
+                </form>
+            </div>
+        </div>
+    </body>

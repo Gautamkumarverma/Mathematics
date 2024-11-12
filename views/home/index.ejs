@@ -5,7 +5,7 @@
   <div class="row mt-4">
     <div class="col-8 offset-2">
       <form
-        action="/upload"
+        action="/listings/upload"
         method="POST"
         id="uploadForm"
         enctype="multipart/form-data"
@@ -36,11 +36,6 @@
             />
             <div class="invalid-feedback">Choose a pdf!</div>
           </div>
-        </div>
-        <div class="mb-5">
-          <label for="image" class="form-table">Upload an image:</label> <br />
-          <input type="file" name="image" class="form-control" required />
-          <div class="invalid-feedback">Choose an image!</div>
         </div>
         <div class="row">
           <div class="mb-5 col-md-5">

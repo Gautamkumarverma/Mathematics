@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -7,12 +8,25 @@ const studentSchema = new Schema({
     required: true,
   },
   image: {
-    type: String,
+    url: String,
+    filename: String,
+  },
+  marks: {
+    type: Number,
+    required: true,
   },
   class: {
     type: String,
+    required: true,
   },
   batch: {
+    type: String,
+    required: true,
+  },
+  board: {
+    type: String,
+  },
+  city: {
     type: String,
   },
 });

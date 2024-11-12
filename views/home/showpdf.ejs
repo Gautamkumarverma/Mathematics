@@ -1,5 +1,4 @@
 <% layout("/layouts/boilerplate") -%>
-
 <h1 class="allPdfh1" >Show all Pdf</h1>
 
 <div class="outerPdfContainer">
@@ -8,11 +7,14 @@
     <h4>Maths Pdfs:</h4>
     <div class="pdfContainer2">
       <% for(let listing of allMathsListings) { %>
-        <div class="box border border-danger"  onclick="openPdf('<%= listing.pdflink %>')">
+        <div class="box border border-danger"  onclick="openPdf('<%= listing.pdflink.url %>')">
           <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
-          <a href="<%= listing.pdflink %>">Download</a>
+          <a href="<%= listing.pdflink.url %>">Download</a>
           &nbsp;&nbsp;
-          <button class="btn btn-dark dleteBtn"  onclick="event.stopPropagation(); deletePdf('<%= listing._id %>')">Delete</button>
+          <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-dark deleteBtn" onclick="event.stopPropagation();">Delete</button>
+        </form>
+        
         </div>
       <% } %>
     </div>
@@ -24,11 +26,14 @@
     <h4>Physics Pdfs:</h4>
     <div class="pdfContainer2">
       <% for(let listing of allPhysicsListings) { %>
-        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink %>')">
+        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink.url %>')">
           <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
-          <a href="<%= listing.pdflink %>">Download</a>
+          <a href="<%= listing.pdflink.url %>">Download</a>
           &nbsp;&nbsp;
-          <button class="btn btn-dark dleteBtn" onclick="event.stopPropagation(); deletePdf('<%= listing._id %>')">Delete</button>
+          <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-dark deleteBtn" onclick="event.stopPropagation();">Delete</button>
+        </form>
+        
         </div>
       <% } %>
     </div>
@@ -40,11 +45,14 @@
     <h4>Chemistry Pdfs:</h4>
     <div class="pdfContainer2">
       <% for(let listing of allChemistryListings) { %>
-        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink %>')">
+        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink.url %>')">
           <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
-          <a href="<%= listing.pdflink %>">Download</a>
+          <a href="<%= listing.pdflink.url %>">Download</a>
           &nbsp;&nbsp;
-          <button class="btn btn-dark  dleteBtn"  onclick="event.stopPropagation(); deletePdf('<%= listing._id %>')">Delete</button>
+          <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-dark deleteBtn" onclick="event.stopPropagation();">Delete</button>
+        </form>
+        
         </div>
       <% } %>
     </div>
@@ -56,11 +64,14 @@
     <h4>Biology Pdfs:</h4>
     <div class="pdfContainer2">
       <% for(let listing of allBiologyListings) { %>
-        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink %>')">
+        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink.url %>')">
           <%= listing.title %><br><i  class="fa-solid fa-file-pdf" style="color: black;"></i>
-          <a href="<%= listing.pdflink %>">Download</a>
+          <a href="<%= listing.pdflink.url %>">Download</a>
           &nbsp;&nbsp;
-          <button class="btn btn-dark dleteBtn"  onclick="event.stopPropagation(); deletePdf('<%= listing._id %>')">Delete</button>
+          <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-dark deleteBtn" onclick="event.stopPropagation();">Delete</button>
+        </form>
+        
         </div>
       <% } %>
     </div>
@@ -75,7 +86,7 @@
     }
     function deletePdf(id){
      // Redirect to the delete route with the particular PDF ID
-           window.location.href = `/deletePdf/${id}`;
+           window.location.href = `/listings/deletePdf/${id}?method=DELETE`;
     }
 </script>
 <style>

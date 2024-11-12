@@ -1,31 +1,154 @@
-
 <% layout('/layouts/boilerplate') -%>
 <body>
+  <div style="text-align: center; margin-top: 20px">
+    <h1>Brilliant Student</h1>
+    <h5>Mathematic Team Hazaribagh ,jharkhand</h5>
+  </div>
+  <div class="stuContainer">
+   <% if(class10th && class10th.length > 0){%>
+      <h3>Class 10th student:</h3><br>
+      <div class="subContainer">
+       
+        <% for (let student of class10th) { %>
   
-    <div style="text-align: center; margin-top: 20px;">
-      <h1>Brilliant Student </h1>
-      <h5>Mathematic Team Hazaribagh ,jharkhand</h5>
-    </div>
-   <div class="stuContainer  ">  
-
-    <% for (let student of allStudents) { %>
-        
-      
-        <div class="card stuBox border border-danger" style="width: 18rem;">
-            <img src="<%=student.image  %>" class="card-img-top stuimage" alt="student image" height="210px" width="250px">
-            <div class="card-body">
-               
-                <p class="card-text"> <%= student.name%></p>
-              </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Class: <%= student.class %></li>
-              <li class="list-group-item">Batch: <%= student.batch %></li>
-
-            </ul>
-           
+        <div class="card stuBox border border-danger" style="width: 20rem">
+          <img
+            src="<%=student.image.url  %>"
+            class="card-img-top stuimage"
+            alt="student image"
+            height="210px"
+            width="250px"
+          />
+          <div class="card-body">
+            <p class="card-text"><%= student.name%></p>
           </div>
-        <br>
-    <% } %>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Class: <%= student.class %></li>
+            <li class="list-group-item">Batch: <%= student.batch %></li>
+            <li class="list-group-item">Marks: <%= student.marks %></li>
+            <li class="list-group-item">Marks: <%= student.board %></li>
+          </ul>
+          <form method="post" action="/students/<%= student._id %>?_method=DELETE" >
+            <button class="btn btn-dark stuDelBtn">Delete</button>
+          </form>
+        </div>
+      
+        <% } %>
+      </div>
+  <%  }%>
+   <% if(class11th && class11th.length >0){%>
+    <h3>Class 11th student:</h3><br>
+    <div class="subContainer">
+    
+      <% for (let student of class11th) { %>
+
+      <div class="card stuBox border border-danger" style="width: 20rem">
+        <img
+          src="<%=student.image.url  %>"
+          class="card-img-top stuimage"
+          alt="student image"
+          height="210px"
+          width="250px"
+        />
+        <div class="card-body">
+          <p class="card-text"><%= student.name%></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Class: <%= student.class %></li>
+          <li class="list-group-item">Batch: <%= student.batch %></li>
+          <li class="list-group-item">Marks: <%= student.marks %></li>
+          <li class="list-group-item">Marks: <%= student.board %></li>
+        </ul>
+        <form method="post" action="/students/<%= student._id %>?_method=DELETE">
+          <button class="btn btn-dark  stuDelBtn">Delete</button>
+        </form>
+      </div>
+     
+      <% } %>
+    </div>
+ <%  }%>
+<%   if(class12th && class12th.length > 0){%>
+    <h3>Class 12th student:</h3><br>
+    <div class="subContainer">
+
+      <% for (let student of class12th) { %>
+
+      <div class="card stuBox border border-danger" style="width: 20rem">
+        <img
+          src="<%=student.image.url  %>"
+          class="card-img-top stuimage"
+          alt="student image"
+          height="210px"
+          width="250px"
+        />
+        <div class="card-body">
+          <p class="card-text"><%= student.name%></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Class: <%= student.class %></li>
+          <li class="list-group-item">Batch: <%= student.batch %></li>
+          <li class="list-group-item">Marks: <%= student.marks %></li>
+          <li class="list-group-item">Marks: <%= student.board %></li>
+        </ul>
+        <form method="post" action="/students/<%= student._id %>?_method=DELETE">
+          <button class="btn btn-dark  stuDelBtn">Delete</button>
+        </form>
+      </div>
+   
+      <% } %>
+    </div>
+   <%}%>
+   <% if(classBCAth && classBCAth.length > 0){%>
+      <h3>Class BCA student:</h3><br>
+      <div class="subContainer">
+     
+        <% for (let student of classBCAth) { %>
+  
+        <div class="card stuBox border border-danger" style="width: 20rem">
+          <img
+            src="<%=student.image.url  %>"
+            class="card-img-top stuimage"
+            alt="student image"
+            height="210px"
+            width="250px"
+          />
+          <div class="card-body">
+            <p class="card-text"><%= student.name%></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Class: <%= student.class %></li>
+            <li class="list-group-item">Batch: <%= student.batch %></li>
+            <li class="list-group-item">Marks: <%= student.marks %></li>
+            <li class="list-group-item">Marks: <%= student.board %></li>
+          </ul>
+          <form method="post" action="/students/<%= student._id %>?_method=DELETE">
+            <button class="btn btn-dark  stuDelBtn">Delete</button>
+          </form>
+        </div>
+     
+        <% } %>
+      </div>
+  <% } %>  
+  <% if ((class10th && class10th.length > 0) || 
+       (class11th && class11th.length > 0) || 
+       (class12th && class12th.length > 0) || 
+       (classBCAth && classBCAth.length > 0)) { %>
+  <form action="/students/add" method="GET">
+    <button class="btn btn-dark addbtn">Add student</button>
+  </form>
+<% } %>
+
   </div>
 </body>
 
+
+<style>
+ .subContainer{
+  display: flex;
+  flex-wrap: wrap;
+
+ }
+ .addbtn{
+  margin-left: 45%;
+ }
+</style>

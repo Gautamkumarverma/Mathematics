@@ -17,6 +17,9 @@ const initDB = async () => {
   Student.deleteMany({});
   await Student.insertMany(initData.data);
   console.log("Database initialize");
+
+  const sortedStudents = await Student.find({}).sort({ marks: -1 });
+  console.log("Students sorted by marks (descending):", sortedStudents);
 };
 
 initDB();
