@@ -7,19 +7,20 @@ module.exports.uploadPdf = async (req, res) => {
   const { title, class: classField, subject } = req.body;
   let url = req.file.path;
   let filename = req.file.filename;
+  console.log(url, "...", filename);
 
   const sampleListing = new Listing({
     title: title,
     class: classField,
     subject: subject,
   });
+  filename += ".pdf";
   sampleListing.pdflink = { url, filename };
 
   await sampleListing.save();
   console.log("you are here Gautam ");
   console.log(url, "...", filename);
 
-  
   req.flash("success", "pdf uploded successfully!");
   // Redirect to /showPdf with classField as query parameter
   res.redirect(`/showPdf?classField=${encodeURIComponent(classField)}`);
@@ -35,7 +36,7 @@ module.exports.destroyPdf = async (req, res) => {
 
     // Redirect to /showPdf with classField as query parameter
     req.flash("success", "pdf deleted successfully!");
-    
+
     res.redirect(`/showPdf?classField=${encodeURIComponent(classField)}`);
   } else {
     res.send("Listing not found.");

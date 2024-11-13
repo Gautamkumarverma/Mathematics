@@ -12,6 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "mathematics_DEV",
+    resource_type: "raw",
     allowed_formats: ["png", "jpg", "jpeg", "pdf"], // Allow both images and PDFs
   },
 });

@@ -5,12 +5,11 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 const { isLoggedIn } = require("../middleware.js");
-
 const listingController = require("../controller/listing.js");
 
 const multer = require("multer");
-const { Storage } = require("../cloud_Config.js");
-const upload = multer({ Storage });
+const { storage } = require("../cloud-Config.js");
+const upload = multer({ storage });
 
 const validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body.listing);
