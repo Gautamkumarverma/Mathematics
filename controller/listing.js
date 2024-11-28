@@ -15,12 +15,11 @@ module.exports.uploadPdf = async (req, res) => {
     subject: subject,
   });
   filename += ".pdf";
+  console.log("new filename:", filename);
   sampleListing.pdflink = { url, filename };
-
   await sampleListing.save();
-  console.log("you are here Gautam ");
-  console.log(url, "...", filename);
-
+  console.log("pdf url", url);
+  console.log("cloudianry url", sampleListing.pdflink.url);
   req.flash("success", "pdf uploded successfully!");
   // Redirect to /showPdf with classField as query parameter
   res.redirect(`/showPdf?classField=${encodeURIComponent(classField)}`);
@@ -47,32 +46,62 @@ module.exports.showlevel1 = async (req, res) => {
   res.render("home/showpdflavel1.ejs");
 };
 
+// module.exports.showListing = async (req, res) => {
+//   const selectedClass = req.query.class;
+//   const pdfClass = "class" + selectedClass + "th";
+//  let allListings = null;
+
+//   let allMathsListings = await Listing.find({
+//     class: pdfClass,
+//     subject: "Maths",
+//   });
+//   let allPhysicsListings = await Listing.find({
+//     class: pdfClass,
+//     subject: "Physics",
+//   });
+//   let allChemistryListings = await Listing.find({
+//     class: pdfClass,
+//     subject: "Chemistry",
+//   });
+//   let allBiologyListings = await Listing.find({
+//     class: pdfClass,
+//     subject: "Biology",
+//   });
+
+//   res.render("home/showpdf.ejs", {
+//     allBiologyListings,
+//     allChemistryListings,
+//     allMathsListings,
+//     allPhysicsListings,
+//   });
+// };
 module.exports.showListing = async (req, res) => {
   const selectedClass = req.query.class;
   const pdfClass = "class" + selectedClass + "th";
-  let allListings = null;
 
-  let allMathsListings = await Listing.find({
+  // Find listings by class and subject
+  const allMathsListings = await Listing.find({
     class: pdfClass,
     subject: "Maths",
   });
-  let allPhysicsListings = await Listing.find({
+  const allPhysicsListings = await Listing.find({
     class: pdfClass,
     subject: "Physics",
   });
-  let allChemistryListings = await Listing.find({
+  const allChemistryListings = await Listing.find({
     class: pdfClass,
     subject: "Chemistry",
   });
-  let allBiologyListings = await Listing.find({
+  const allBiologyListings = await Listing.find({
     class: pdfClass,
     subject: "Biology",
   });
 
+  // Render the page and send the modified listings
   res.render("home/showpdf.ejs", {
-    allBiologyListings,
-    allChemistryListings,
     allMathsListings,
+    allChemistryListings,
+    allBiologyListings,
     allPhysicsListings,
   });
 };

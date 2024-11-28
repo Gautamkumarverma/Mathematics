@@ -1,0 +1,31 @@
+/* Scrollable Sidebar */
+.sidebar {
+    background-color: #f9f9f9;
+    padding: 20px;
+    width: 250px;
+    border-right: 1px solid #ddd;
+    height: 100vh; /* Full viewport height */
+    position: sticky; /* Keeps the sidebar fixed while scrolling */
+    top: 0; /* Aligns it at the top of the viewport */
+    overflow-y: auto; /* Enables vertical scrolling for overflow */
+    overflow-x: hidden; /* Hides horizontal overflow, if any */
+    scrollbar-width: thin; /* For Firefox, optional */
+}
+
+/* Custom Scrollbar Styling for Webkit Browsers */
+.sidebar::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Scrollbar thumb color */
+    border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa; /* Thumb color on hover */
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background-color: #f9f9f9; /* Scrollbar track color */
+}

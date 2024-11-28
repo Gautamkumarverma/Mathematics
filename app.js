@@ -46,6 +46,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "pages")));
+
 app.use(methodOverride("_method"));
 
 const sessionOptions = {
@@ -121,6 +123,9 @@ async function fetchListingsByClass(classField) {
   //   });
 }
 
+app.get("/os/page1", (req, res) => {
+  res.render("documents/Os/pp/os.ejs");
+});
 // Route to fetch listings by class and render showpdf.ejs
 app.get(
   "/showPdf",
@@ -159,17 +164,6 @@ app.get("/conditions/privacy", (req, res) => {
 app.get("/conditions/terms", (req, res) => {
   res.render("conditions/terms.ejs");
 });
-
-// app.get("/testlisting", async (req, res) => {
-//   const sampleStudent = new Student({
-//     name: "Gautam kumar",
-//     image: "/uploads/images/anu.jpg",
-//     batch: "2022-25",
-//   });
-//   await sampleStudent.save();
-//   console.log("sample was saved");
-//   res.send("successfully saved");
-// });
 
 app.get("*", (req, res, next) => {
   next(new ExpressError(404, "Page not found!"));

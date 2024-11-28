@@ -10,11 +10,18 @@ cloudinary.config({
 // Storage for images
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: "mathematics_DEV",
-    resource_type: "raw",
-    allowed_formats: ["png", "jpg", "jpeg", "pdf"], // Allow both images and PDFs
+  params: async (req, file) => {
+    const timestamp = Date.now();
+    const originalNameWithoutExt = file.originalname.split(".")[0]; // Remove extension
+    const extension = file.mimetype === "application/pdf" ? "pdf" : ""; // Add .pdf for PDFs
+    return {
+      folder: "mathematics_DEV",
+      resource_type: "raw",
+      public_id: `${originalNameWithoutExt}.${extension}`, // Add .pdf explicitly
+      allowed_formats: ["pdf", "png", "jpg", "jpeg"],
+    };
   },
 });
+
 
 module.exports = { cloudinary, storage };

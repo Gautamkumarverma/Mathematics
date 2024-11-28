@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Subject Navigation</title>
+  <link rel="stylesheet" href="/documents/css/style.css">
+  <link rel="stylesheet" href="/documents/css/styleScroll.css">
+  <style>
+    /* Style the main content to be scrollable */
+    .main-content {
+      height: 80vh; /* Adjust this value as per your design needs */
+      overflow-y: auto; /* Enables vertical scrolling */
+      padding: 20px; /* Optional, to add some space inside the content */
+    }
+  </style>
+</head>
+<body>
+  <!-- Include Navbar -->
+
+
+  <!-- Subject Sidebar (Below Navbar) -->
+  <nav class="subject-sidebar">
+    <div class="subject-scroll">
+      <a href="/documents/Networking/pp/networking.html" class="subject-item no-dynamic">Networking</a>
+      <a href="/documents/Os/pp/os.html" class="subject-item no-dynamic">Os</a>
+      <a href="/documents/Dbms/pp/db.html" class="subject-item no-dynamic">Dbms</a>
+      <a href="#" class="subject-item">English</a>
+      <a href="#" class="subject-item">History</a>
+      <a href="#" class="subject-item">Geography</a>
+      <a href="#" class="subject-item">Physics</a>
+      <a href="#" class="subject-item">Chemistry</a>
+      <a href="#" class="subject-item">Biology</a>
+      <a href="#" class="subject-item">Math</a>
+      <a href="#" class="subject-item">Science</a>
+      <a href="#" class="subject-item">Chemistry</a>
+      <a href="#" class="subject-item">Biology</a>
+      <a href="#" class="subject-item">Math</a>
+      <a href="#" class="subject-item">Science</a>
+      <!-- Add more items as needed -->
+    </div>
+  </nav>
+
+  <main class="content-container">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <h2>Topics</h2>
+      <ul class="sidebar-menu">
+        <li><a href="../pages/page1.html" data-page="../pages/page1.html">Topic 1</a></li>
+        <li><a href="../pages/page2.html" data-page="../pages/page2.html">Topic 2</a></li>
+        <li><a href="../pages/page3.html" data-page="../pages/page3.html">Topic 3</a></li>
+        <li><a href="../pages/page4.html" data-page="../pages/page4.html">Topic 4</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <section id="main-content" class="main-content">
+      <h1>Welcome</h1>
+      <p>Select a subject or topic from the sidebars to view its content.</p>
+    </section>
+
+     <!-- Right Sidebar (Ads or Additional Info) -->
+     <aside class="ads">
+      <div class="ad-banner">Your Ad Here</div>
+    </aside>
+  </main>
+
+  <!-- JavaScript for Dynamic Content Loading -->
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+  const mainContent = document.getElementById('main-content');
+  const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+
+  // Function to handle dynamic content loading
+  const loadPage = (pageUrl) => {
+    fetch(pageUrl)
+      .then(response => {
+        if (!response.ok) throw new Error('Network error');
+        return response.text();
+      })
+      .then(content => {
+        mainContent.innerHTML = content;
+        // Update the browser's address bar without reloading the page
+        history.pushState(null, '', pageUrl);
+      })
+      .catch(error => {
+        mainContent.innerHTML = `<p>Error loading content. Please try again later.</p>`;
+        console.error('Error loading content:', error);
+      });
+  };
+
+  // Load the first topic by default
+  if (sidebarLinks.length > 0) {
+    const firstTopicUrl = sidebarLinks[0].getAttribute('data-page');
+    loadPage(firstTopicUrl);
+  }
+
+  // Handle topic sidebar navigation
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault(); // Prevent default navigation
+      const pageUrl = link.getAttribute('data-page');
+      loadPage(pageUrl);
+    });
+  });
+
+  // Optionally handle the "back" and "forward" buttons
+  window.addEventListener('popstate', () => {
+    loadPage(window.location.pathname);
+  });
+});
+
+  </script>
+</body>
+
+</html>
