@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Subject Navigation</title>
-  <link rel="stylesheet" href="/documents/css/style.css">
-  
-  <link rel="stylesheet" href="/documents/css/styleScroll.css">
-</head>
+<% layout("/layouts/boilerplate") -%>
 <body>
   <!-- Include Navbar -->
 
@@ -15,10 +6,9 @@
   <!-- Subject Sidebar (Below Navbar) -->
   <nav class="subject-sidebar">
     <div class="subject-scroll">
-      <a href="/documents/Networking/pp/networking.html" class="subject-item no-dynamic">Networking</a>
-      <a href="/documents/Os/pp/os.html" class="subject-item no-dynamic">Os</a>
-      <a href="/documents/Dbms/pp/db.html" class="subject-item no-dynamic">Dbms</a>
-
+      <a href="/views/documents/Networking/pp/networking.ejs" class="subject-item no-dynamic">Networking</a>
+      <a href="/views/documents/Os/pp/os.ejs" class="subject-item no-dynamic">Os</a>
+      <a href="/views/documents/Dbms/pp/db.ejs" class="subject-item no-dynamic">Dbms</a>
       <a href="#" class="subject-item">English</a>
       <a href="#" class="subject-item">Geography</a>
       <a href="#" class="subject-item">Physics</a>
@@ -43,10 +33,10 @@
     <aside class="sidebar">
       <h2>Topics</h2>
       <ul class="sidebar-menu">
-        <li><a href="../pages/page1.html" data-page="../pages/page1.html">Topic 1</a></li>
-        <li><a href="../pages/page2.html" data-page="../pages/page2.html">Topic 2</a></li>
-        <li><a href="../pages/page3.html" data-page="../pages/page3.html">Topic 3</a></li>
-        <li><a href="../pages/page4.html" data-page="../pages/page4.html">Topic 4</a></li>
+        <a href="/views/documents/Os/pages/page1.ejs" class="subject-item">Topic 1  Netwo</a>
+        <a href="/views/documents/Os/pages/page1.ejs" class="subject-item">Topic 2 Netwo</a>
+        <a href="/views/documents/Os/pages/page1.ejs" class="subject-item">Topic 3  Netwo</a>
+        <a href="/views/documents/Os/pages/page1.ejs" class="subject-item">Topic 4  Netwo</a>
       </ul>
     </aside>
 
@@ -73,27 +63,28 @@
 
   // Function to handle dynamic content loading
   const loadPage = (pageUrl) => {
-    fetch(pageUrl)
-      .then(response => {
-        if (!response.ok) throw new Error('Network error');
-        return response.text();
-      })
-      .then(content => {
-        mainContent.innerHTML = content;
-        // Update the browser's address bar without reloading the page
-        history.pushState(null, '', pageUrl);
-      })
-      .catch(error => {
-        mainContent.innerHTML = `<p>Error loading content. Please try again later.</p>`;
-        console.error('Error loading content:', error);
-      });
-  };
+  fetch(pageUrl)
+    .then(response => {
+      if (!response.ok) throw new Error('Network error');
+      return response.text();
+    })
+    .then(content => {
+      mainContent.innerHTML = content;
+      // Update the browser's address bar without reloading the page
+      history.pushState(null, '', pageUrl);
+    })
+    .catch(error => {
+      mainContent.innerHTML = "<p>Error loading content. Please try again later.</p>";
+      console.error('Error loading content:', error);
+    });
+};
+
 
   // Load the first topic by default
-  if (sidebarLinks.length > 0) {
-    const firstTopicUrl = sidebarLinks[0].getAttribute('data-page');
-    loadPage(firstTopicUrl);
-  }
+  // if (sidebarLinks.length > 0) {
+  //   const firstTopicUrl = sidebarLinks[0].getAttribute('data-page');
+  //   loadPage(firstTopicUrl);
+  // }
 
   // Handle topic sidebar navigation
   sidebarLinks.forEach(link => {
@@ -112,4 +103,4 @@
 
   </script>
 </body>
-</html>
+

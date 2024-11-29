@@ -46,6 +46,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "/public")));
+app.use("/documents", express.static(path.join(__dirname, "documents")));
+
 app.use(express.static(path.join(__dirname, "pages")));
 
 app.use(methodOverride("_method"));
@@ -126,6 +128,32 @@ async function fetchListingsByClass(classField) {
 app.get("/os/page1", (req, res) => {
   res.render("documents/Os/pp/os.ejs");
 });
+
+app.get("/views/documents/Networking/pp/networking.ejs", (req, res) => {
+  res.render("documents/Networking/pp/networking.ejs");
+});
+
+app.get("/views/documents/Dbms/pp/db.ejs", (req, res) => {
+  res.render("documents/Dbms/pp/db.ejs");
+});
+
+app.get("/views/documents/Os/pp/os.ejs", (req, res) => {
+  res.render("documents/Os/pp/os.ejs");
+});
+
+// Dynamic route for topics
+app.get("/views/documents/:topic/pages/:page", (req, res) => {
+  const { topic, page } = req.params;
+  const filePath = `documents/${topic}/pages/${page}.ejs`;
+
+  res.render(filePath, (err, html) => {
+    if (err) {
+      return res.status(404).send("Page not found");
+    }
+    res.send(html);
+  });
+});
+
 // Route to fetch listings by class and render showpdf.ejs
 app.get(
   "/showPdf",

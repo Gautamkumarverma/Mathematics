@@ -137,3 +137,8 @@ body {
   text-decoration: underline;
   transform: scale(1.05);
 }
+.main-content {
+  height: 100vh; /* Adjust this value as per your design needs */
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding: 20px; /* Optional, to add some space inside the content */
+}

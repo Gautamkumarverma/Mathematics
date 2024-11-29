@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Subject Navigation</title>
-  <link rel="stylesheet" href="/documents/css/style.css">
-  <link rel="stylesheet" href="/documents/css/styleScroll.css">
-  <style>
-    /* Style the main content to be scrollable */
-    .main-content {
-      height: 80vh; /* Adjust this value as per your design needs */
-      overflow-y: auto; /* Enables vertical scrolling */
-      padding: 20px; /* Optional, to add some space inside the content */
-    }
-  </style>
-</head>
+<% layout("/layouts/boilerplate") -%>
 <body>
   <!-- Include Navbar -->
 
@@ -22,9 +6,10 @@
   <!-- Subject Sidebar (Below Navbar) -->
   <nav class="subject-sidebar">
     <div class="subject-scroll">
-      <a href="/documents/Networking/pp/networking.html" class="subject-item no-dynamic">Networking</a>
-      <a href="/documents/Os/pp/os.html" class="subject-item no-dynamic">Os</a>
-      <a href="/documents/Dbms/pp/db.html" class="subject-item no-dynamic">Dbms</a>
+
+      <a href="/views/documents/Networking/pp/networking.ejs" class="subject-item no-dynamic">Networking</a>
+      <a href="/views/documents/Os/pp/os.ejs" class="subject-item no-dynamic">Os</a>
+      <a href="/views/documents/Dbms/pp/db.ejs" class="subject-item no-dynamic">Dbms</a>
       <a href="#" class="subject-item">English</a>
       <a href="#" class="subject-item">History</a>
       <a href="#" class="subject-item">Geography</a>
@@ -46,10 +31,13 @@
     <aside class="sidebar">
       <h2>Topics</h2>
       <ul class="sidebar-menu">
-        <li><a href="../pages/page1.html" data-page="../pages/page1.html">Topic 1</a></li>
-        <li><a href="../pages/page2.html" data-page="../pages/page2.html">Topic 2</a></li>
-        <li><a href="../pages/page3.html" data-page="../pages/page3.html">Topic 3</a></li>
-        <li><a href="../pages/page4.html" data-page="../pages/page4.html">Topic 4</a></li>
+        <a href="/documents/Os/pages/page1" class="subject-item" data-page="/documents/Os/pages/page1">Topic 1 Os</a>
+
+        <a href="/documents/Os/pages/page2.ejs" class="subject-item" data-page="/documents/Os/pages/page2.ejs">Topic 2 Os</a>
+        <a href="/documents/Os/pages/page3.ejs" class="subject-item" data-page="/documents/Os/pages/page3.ejs">Topic 3 Os</a>
+      <a href="/documents/Os/pages/page4.ejs" class="subject-item" data-page="/documents/Os/pages/page4.ejs">Topic 4 Os</a>
+
+    
       </ul>
     </aside>
 
@@ -67,45 +55,49 @@
 
   <!-- JavaScript for Dynamic Content Loading -->
   <script>
-   document.addEventListener('DOMContentLoaded', () => {
-  const mainContent = document.getElementById('main-content');
-  const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+   document.addEventListener("DOMContentLoaded", () => {
+  const mainContent = document.getElementById("main-content");
+  const sidebarLinks = document.querySelectorAll(".sidebar-menu a");
 
-  // Function to handle dynamic content loading
-  const loadPage = (pageUrl) => {
-    fetch(pageUrl)
-      .then(response => {
-        if (!response.ok) throw new Error('Network error');
-        return response.text();
-      })
-      .then(content => {
-        mainContent.innerHTML = content;
-        // Update the browser's address bar without reloading the page
-        history.pushState(null, '', pageUrl);
-      })
-      .catch(error => {
-        mainContent.innerHTML = `<p>Error loading content. Please try again later.</p>`;
-        console.error('Error loading content:', error);
-      });
-  };
-
-  // Load the first topic by default
-  if (sidebarLinks.length > 0) {
-    const firstTopicUrl = sidebarLinks[0].getAttribute('data-page');
-    loadPage(firstTopicUrl);
-  }
-
-  // Handle topic sidebar navigation
-  sidebarLinks.forEach(link => {
-    link.addEventListener('click', event => {
+  sidebarLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
       event.preventDefault(); // Prevent default navigation
-      const pageUrl = link.getAttribute('data-page');
+      const pageUrl = link.getAttribute("data-page");
       loadPage(pageUrl);
     });
   });
 
-  // Optionally handle the "back" and "forward" buttons
-  window.addEventListener('popstate', () => {
+
+function loadPage(pageUrl) {
+  fetch(pageUrl)
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to load page content");
+      return response.text();
+    })
+    .then((html) => {
+      // Replace the content of #main-content
+      mainContent.innerHTML = html;
+
+      // Optionally update browser history
+      history.pushState(null, "", pageUrl);
+    })
+    .catch((err) => {
+      console.error(err);
+      mainContent.innerHTML = "<p>Error loading content. Please try again.</p>";
+    });
+}
+
+// Example usage: load page dynamically when a button or link is clicked
+document.querySelectorAll(".dynamic-link").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent default navigation
+    const pageUrl = e.target.getAttribute("href");
+    loadPage(pageUrl);
+  });
+});
+
+  // Optionally handle "back" and "forward" browser navigation
+  window.addEventListener("popstate", () => {
     loadPage(window.location.pathname);
   });
 });
@@ -113,4 +105,3 @@
   </script>
 </body>
 
-</html>
