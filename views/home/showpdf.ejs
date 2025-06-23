@@ -1,135 +1,159 @@
 <% layout("/layouts/boilerplate") -%>
-<h1 class="allPdfh1" >Show all Pdf</h1>
+  <h1 class="allPdfh1">Show all Pdf</h1>
 
-<div class="outerPdfContainer">
+  <div class="outerPdfContainer">
 
-  <% if(allMathsListings && allMathsListings.length > 0) { %>
-    <h4>Maths Pdfs:</h4>
-    <div class="pdfContainer2">
-      <% for(let listing of allMathsListings) { %>
-        <div class="box border border-danger" >
-          <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
-          <a href="<%= listing.pdflink.url %>" target="_blank" download >Download</a>
-          &nbsp;&nbsp;
-          <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
-            <button type="submit" class="btn btn-dark deleteBtn" onclick="event.stopPropagation();">Delete</button>
-        </form>
-        
-        </div>
+    <% if(allMathsListings && allMathsListings.length> 0) { %>
+      <h4>Maths Pdfs:</h4>
+      <div class="pdfContainer2">
+        <% for(let listing of allMathsListings) { %>
+          <div class="box border border-danger">
+            <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
+              <a href="<%= listing.pdflink.url %>" target="_blank" download>Download</a>
+              &nbsp;&nbsp;
+              <% if (currUser && currUser.isAdmin) { %>
+                <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST"
+                  style="display:inline;">
+                  <button type="submit" class="btn btn-dark deleteBtn"
+                    onclick="event.stopPropagation();">Delete</button>
+                </form>
+                <% } %>
+
+          </div>
+          <% } %>
+      </div>
+
       <% } %>
-    </div>
-   
-  <% } %>
 
-  <% if(allPhysicsListings && allPhysicsListings.length > 0) { %>
-    <hr>
-    <h4>Physics Pdfs:</h4>
-    <div class="pdfContainer2">
-      <% for(let listing of allPhysicsListings) { %>
-        <div class="box border border-danger"  >
-          <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
-          <a href="<%= listing.pdflink.url %>" target="_blank" download>Download</a>
-          &nbsp;&nbsp;
-          <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
-            <button type="submit" class="btn btn-dark deleteBtn" onclick="event.stopPropagation();">Delete</button>
-        </form>
-        
-        </div>
-      <% } %>
-    </div>
- 
-  <% } %>
+        <% if(allPhysicsListings && allPhysicsListings.length> 0) { %>
+          <hr>
+          <h4>Physics Pdfs:</h4>
+          <div class="pdfContainer2">
+            <% for(let listing of allPhysicsListings) { %>
+              <div class="box border border-danger">
+                <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
+                  <a href="<%= listing.pdflink.url %>" target="_blank" download>Download</a>
+                  &nbsp;&nbsp;
+                  <% if (currUser && currUser.isAdmin) { %>
+                    <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST"
+                      style="display:inline;">
+                      <button type="submit" class="btn btn-dark deleteBtn"
+                        onclick="event.stopPropagation();">Delete</button>
+                    </form>
+                    <% } %>
 
-  <% if(allChemistryListings && allChemistryListings.length > 0) { %>
-    <hr>
-    <h4>Chemistry Pdfs:</h4>
-    <div class="pdfContainer2"  >
-      <% for(let listing of allChemistryListings) { %>
-        <p><%= listing.originalFileName  %></p>
-       <!-- ------------------ -->
-       <div class="box border border-danger"  onclick="openPdf('<%= listing.pdflink.url %>')" >
-        <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
-        <a href="<%= listing.pdflink.url %>" target="_blank" download>Download</a>
-        &nbsp;&nbsp;
-      
-        <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
-            <button type="submit" class="btn btn-dark deleteBtn" onclick="event.stopPropagation();">Delete</button>
-        </form>
-        
-    </div>
-    
-       <!-- --------------- -->
-      <% } %>
-    </div>
-  
-  <% } %>
+              </div>
+              <% } %>
+          </div>
 
-  <% if(allBiologyListings && allBiologyListings.length > 0) { %>
-    <hr>
-    <h4>Biology Pdfs:</h4>
-    <div class="pdfContainer2">
-      <% for(let listing of allBiologyListings) { %>
-        <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink.url %>')">
-          <%= listing.title %><br><i  class="fa-solid fa-file-pdf" style="color: black;"></i>
-          <a href="<%= listing.pdflink.url %>" target="_blank" download>Download</a>
-          &nbsp;&nbsp;
-          <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
-            <button type="submit" class="btn btn-dark deleteBtn" onclick="event.stopPropagation();">Delete</button>
-        </form>
-        
-        </div>
-      <% } %>
-    </div>
-    
-  <% } %>
+          <% } %>
 
-</div>
-<script>
+            <% if(allChemistryListings && allChemistryListings.length> 0) { %>
+              <hr>
+              <h4>Chemistry Pdfs:</h4>
+              <div class="pdfContainer2">
+                <% for(let listing of allChemistryListings) { %>
+                  <p>
+                    <%= listing.originalFileName %>
+                  </p>
+                  <!-- ------------------ -->
+                  <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink.url %>')">
+                    <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
+                      <a href="<%= listing.pdflink.url %>" target="_blank" download>Download</a>
+                      &nbsp;&nbsp;
+
+                      <% if (currUser && currUser.isAdmin) { %>
+                        <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST"
+                          style="display:inline;">
+                          <button type="submit" class="btn btn-dark deleteBtn"
+                            onclick="event.stopPropagation();">Delete</button>
+                        </form>
+                        <% } %>
+
+                  </div>
+
+                  <!-- --------------- -->
+                  <% } %>
+              </div>
+
+              <% } %>
+
+                <% if(allBiologyListings && allBiologyListings.length> 0) { %>
+                  <hr>
+                  <h4>Biology Pdfs:</h4>
+                  <div class="pdfContainer2">
+                    <% for(let listing of allBiologyListings) { %>
+                      <div class="box border border-danger" onclick="openPdf('<%= listing.pdflink.url %>')">
+                        <%= listing.title %><br><i class="fa-solid fa-file-pdf" style="color: black;"></i>
+                          <a href="<%= listing.pdflink.url %>" target="_blank" download>Download</a>
+                          &nbsp;&nbsp;
+                          <% if (currUser && currUser.isAdmin) { %>
+                            <form action="/listings/deletePdf/<%= listing._id %>?_method=DELETE" method="POST"
+                              style="display:inline;">
+                              <button type="submit" class="btn btn-dark deleteBtn"
+                                onclick="event.stopPropagation();">Delete</button>
+                            </form>
+                            <% } %>
+
+
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <% } %>
+
+  </div>
+  <script>
     // Function to open the PDF link
-    try{
+    try {
       function openPdf(link) {
 
-          console.log("main url :---",link)
-                  window.open(link, "_blank");
-          }
-    }catch(err){
+        console.log("main url :---", link)
+        window.open(link, "_blank");
+      }
+    } catch (err) {
       console.log(err);
     }
-    
-    
-    function deletePdf(id){
-     // Redirect to the delete route with the particular PDF ID
-     console.log("delete in script ");
-           window.location.href = `/listings/deletePdf/${id}?method=DELETE`;
+
+
+    function deletePdf(id) {
+      // Redirect to the delete route with the particular PDF ID
+      console.log("delete in script ");
+      window.location.href = `/listings/deletePdf/${id}?method=DELETE`;
     }
-</script>
-<style>
-  .box {
-    width: 400px;
-   
-  }
-  .pdfContainer2 {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .pdfContainer2 > div {
-    margin: 10px;
-    background-color: rgb(168, 141, 194);
-  }
-  .allPdfh1{
-    text-align: center;
-    font-family: cursive;
-    margin-top: 50px;
-     font-weight: 600;
-    
-  }
- .outerPdfContainer{
-  background: linear-gradient(135deg, #318dae, #7daa84);
-  color: #a70404;
-  border-radius: 10px;
- }
- .dleteBtn{
-margin-bottom: 3px;
-  margin-left: 150px;
- }
-</style>
+  </script>
+  <style>
+    .box {
+      width: 400px;
+
+    }
+
+    .pdfContainer2 {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .pdfContainer2>div {
+      margin: 10px;
+      background-color: rgb(168, 141, 194);
+    }
+
+    .allPdfh1 {
+      text-align: center;
+      font-family: cursive;
+      margin-top: 50px;
+      font-weight: 600;
+
+    }
+
+    .outerPdfContainer {
+      background: linear-gradient(135deg, #318dae, #7daa84);
+      color: #a70404;
+      border-radius: 10px;
+    }
+
+    .dleteBtn {
+      margin-bottom: 3px;
+      margin-left: 150px;
+    }
+  </style>

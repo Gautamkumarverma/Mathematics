@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Subject Navigation</title>
+  <link rel="stylesheet" href="/check/css/cc.css">
+  
+  <link rel="stylesheet" href="/styleScroll.css">
+</head>
+<body>
+  <!-- Include Navbar -->
+
+
+  <!-- Subject Sidebar (Below Navbar) -->
+  <nav class="subject-sidebar">
+    <div class="subject-scroll">
+      <a href="/check/Dbms/dbms.html" class="subject-item">Dbms</a>
+      <a href="/check/Os/os.html" class="subject-item">Os</a>
+      <a href="/check/networking/networking.html" class="subject-item">Networking</a></a>
+      <a href="/" class="subject-item">Science</a>
+      <a href="#" class="subject-item">English</a>
+      <a href="#" class="subject-item">History</a>
+      <a href="#" class="subject-item">Geography</a>
+      <a href="#" class="subject-item">Physics</a>
+      <a href="#" class="subject-item">Chemistry</a>
+      <a href="#" class="subject-item">Biology</a>
+      <a href="#" class="subject-item">Math</a>
+      <a href="#" class="subject-item">Science</a>
+      <a href="#" class="subject-item">English</a>
+      <a href="#" class="subject-item">History</a>
+      <a href="#" class="subject-item">Geography</a>
+      <a href="#" class="subject-item">Physics</a>
+      <a href="#" class="subject-item">Chemistry</a>
+      <a href="#" class="subject-item">Biology</a>
+      <a href="#" class="subject-item">Math</a>
+      <!-- Add more items as needed -->
+    </div>
+  </nav>
+  
+
+  <main class="content-container">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <h2>Topics</h2>
+      <ul class="sidebar-menu">
+        <li><a href="/check/networking/pages/page1.html" class="subject-item" data-topic-url="/check/networking/pages/page1.html">Topic 1</a></li>
+        <li><a href="/check/networking/pages/page2.html" class="subject-item" data-topic-url="/check/networking/pages/page2.html">Topic 2</a></li>
+        <li><a href="/check/networking/pages/page3.html" class="subject-item" data-topic-url="/check/networking/pages/page3.html">Topic 3</a></li>
+        <li><a href="/check/networking/pages/page4.html" class="subject-item" data-topic-url="/check/networking/pages/page4.html">Topic 4</a></li> 
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <section id="main-content" class="main-content">
+      <h1>Welcome</h1>
+      <p>Select a subject or topic from the sidebars to view its content.</p>
+    </section>
+
+    <!-- Right Sidebar (Ads or Additional Info) -->
+    <aside class="ads">
+      <div class="ad-banner">Your Ad Here</div>
+    </aside>
+  </main>
+
+  <!-- Include Footer -->
+
+
+  <!-- JavaScript for Dynamic Content Loading -->
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const topicLinks = document.querySelectorAll('.sidebar-menu a');
+  const mainContent = document.getElementById('main-content');
+
+  const loadContent = (url) => {
+    console.log(`Attempting to load content from: ${url}`);
+    fetch(`${url}?t=${new Date().getTime()}`) // Prevent cache
+      .then(response => {
+        if (!response.ok) {
+          console.error(`Failed to load: ${response.status} ${response.statusText}`);
+          throw new Error(`Error loading content from ${url}`);
+        }
+        return response.text();
+      })
+      .then(content => {
+        console.log(`Successfully loaded content from ${url}`);
+        mainContent.innerHTML = content;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        mainContent.innerHTML = `<p>Error loading content. Please try again later.</p>`;
+      });
+  };
+
+  // Automatically load the first topic when the page loads
+  if (topicLinks.length > 0) {
+    const firstTopicUrl = topicLinks[0].getAttribute('href'); // Get URL of the first topic
+    loadContent(firstTopicUrl); // Load the first topic
+  }
+
+  topicLinks.forEach(link => {
+    console.log('Initializing click handler for:', link.href);
+    link.addEventListener('click', (event) => {
+      event.preventDefault(); // Prevent default navigation
+      const topicUrl = link.getAttribute('href');
+      loadContent(topicUrl);
+    });
+  });
+});
+
+
+  </script>
+</body>
+</html>

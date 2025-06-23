@@ -184,3 +184,75 @@ body{
     border-radius: 10px;
     background-color: rgb(46, 193, 141);
 }
+
+     /* yt video related css */
+     /* 1Making video scrollable */
+#videos {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+  padding: 10px;
+  margin-top: 100px;
+}
+#videos iframe {
+  flex: 0 0 auto;
+
+}
+#videos iframe {
+  border: 3px solid #196434; 
+  border-radius: 10px;    
+  padding: 2px;          
+  box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+}
+
+
+ /* -----style for course------ */
+
+.add-course-form {
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.add-course-form h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #0369a1;
+}
+
+.add-course-form form input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.add-course-form form input:focus {
+  border-color: #0ea5e9;
+  outline: none;
+  box-shadow: 0 0 5px rgba(14, 165, 233, 0.5);
+}
+
+.add-course-form form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0ea5e9;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-course-form form button:hover {
+  background-color: #0369a1;
+}

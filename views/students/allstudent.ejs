@@ -1,154 +1,263 @@
 <% layout('/layouts/boilerplate') -%>
+
 <body>
   <div style="text-align: center; margin-top: 20px">
     <h1>Brilliant Student</h1>
-    <h5>Mathematic Team Hazaribagh ,jharkhand</h5>
+    <h5>Mathematic Team Hazaribagh, Jharkhand</h5>
   </div>
+
   <div class="stuContainer">
-   <% if(class10th && class10th.length > 0){%>
-      <h3>Class 10th student:</h3><br>
-      <div class="subContainer">
-       
-        <% for (let student of class10th) { %>
-  
-        <div class="card stuBox border border-danger" style="width: 20rem">
-          <img
-            src="<%=student.image.url  %>"
-            class="card-img-top stuimage"
-            alt="student image"
-            height="210px"
-            width="250px"
-          />
-          <div class="card-body">
-            <p class="card-text"><%= student.name%></p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Class: <%= student.class %></li>
-            <li class="list-group-item">Batch: <%= student.batch %></li>
-            <li class="list-group-item">Marks: <%= student.marks %></li>
-            <li class="list-group-item">Marks: <%= student.board %></li>
-          </ul>
-          <form method="post" action="/students/<%= student._id %>?_method=DELETE" >
-            <button class="btn btn-dark stuDelBtn">Delete</button>
+    <% if (class10th && class10th.length > 0) { %>
+    <h3 class="text-center mt-5 mb-3 text-primary">Class 10th Students</h3>
+    <div class="subContainer">
+      <% for (let student of class10th) { %>
+      <div
+        class="card stuBox shadow-sm border-0 m-3"
+        style="width: 18rem; border-radius: 15px; overflow: hidden"
+      >
+        <img
+          src="<%= student.image.url %>"
+          class="card-img-top stuimage"
+          alt="student image"
+          style="
+            height: 210px;
+            object-fit: cover;
+            border-bottom: 5px solid green;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+          "
+        />
+
+        <div class="card-body text-center">
+          <h5 class="card-title fw-semibold mb-1"><%= student.name %></h5>
+          <p class="text-muted small mb-0">Class: <%= student.class %></p>
+          <p class="text-muted small mb-0">Batch: <%= student.batch %></p>
+          <p class="text-muted small mb-0">Marks: <%= student.marks %></p>
+          <p class="text-muted small">Board: <%= student.board %></p>
+        </div>
+        <% if (currUser && currUser.isAdmin) { %>
+        <div class="card-footer bg-transparent text-center">
+          <form
+            method="POST"
+            action="/students/<%= student._id %>?_method=DELETE"
+          >
+            <button class="btn btn-outline-danger btn-sm stuDelBtn">
+              Delete
+            </button>
           </form>
         </div>
-      
         <% } %>
       </div>
-  <%  }%>
-   <% if(class11th && class11th.length >0){%>
-    <h3>Class 11th student:</h3><br>
+      <% } %>
+    </div>
+    <% } %> <% if (class11th && class11th.length > 0) { %>
+    <h3 class="text-center mt-5 mb-3 text-primary">Class 11th Students</h3>
     <div class="subContainer">
-    
       <% for (let student of class11th) { %>
-
-      <div class="card stuBox border border-danger" style="width: 20rem">
+      <div
+        class="card stuBox shadow-sm border-0 m-3"
+        style="width: 18rem; border-radius: 15px; overflow: hidden"
+      >
         <img
-          src="<%=student.image.url  %>"
+          src="<%= student.image.url %>"
           class="card-img-top stuimage"
           alt="student image"
-          height="210px"
-          width="250px"
+          style="
+            height: 210px;
+            object-fit: cover;
+            border-bottom: 5px solid green;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+          "
         />
-        <div class="card-body">
-          <p class="card-text"><%= student.name%></p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Class: <%= student.class %></li>
-          <li class="list-group-item">Batch: <%= student.batch %></li>
-          <li class="list-group-item">Marks: <%= student.marks %></li>
-          <li class="list-group-item">Marks: <%= student.board %></li>
-        </ul>
-        <form method="post" action="/students/<%= student._id %>?_method=DELETE">
-          <button class="btn btn-dark  stuDelBtn">Delete</button>
-        </form>
-      </div>
-     
-      <% } %>
-    </div>
- <%  }%>
-<%   if(class12th && class12th.length > 0){%>
-    <h3>Class 12th student:</h3><br>
-    <div class="subContainer">
 
-      <% for (let student of class12th) { %>
-
-      <div class="card stuBox border border-danger" style="width: 20rem">
-        <img
-          src="<%=student.image.url  %>"
-          class="card-img-top stuimage"
-          alt="student image"
-          height="210px"
-          width="250px"
-        />
-        <div class="card-body">
-          <p class="card-text"><%= student.name%></p>
+        <div class="card-body text-center">
+          <h5 class="card-title fw-semibold mb-1"><%= student.name %></h5>
+          <p class="text-muted small mb-0">Class: <%= student.class %></p>
+          <p class="text-muted small mb-0">Batch: <%= student.batch %></p>
+          <p class="text-muted small mb-0">Marks: <%= student.marks %></p>
+          <p class="text-muted small">Board: <%= student.board %></p>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Class: <%= student.class %></li>
-          <li class="list-group-item">Batch: <%= student.batch %></li>
-          <li class="list-group-item">Marks: <%= student.marks %></li>
-          <li class="list-group-item">Marks: <%= student.board %></li>
-        </ul>
-        <form method="post" action="/students/<%= student._id %>?_method=DELETE">
-          <button class="btn btn-dark  stuDelBtn">Delete</button>
-        </form>
-      </div>
-   
-      <% } %>
-    </div>
-   <%}%>
-   <% if(classBCAth && classBCAth.length > 0){%>
-      <h3>Class BCA student:</h3><br>
-      <div class="subContainer">
-     
-        <% for (let student of classBCAth) { %>
-  
-        <div class="card stuBox border border-danger" style="width: 20rem">
-          <img
-            src="<%=student.image.url  %>"
-            class="card-img-top stuimage"
-            alt="student image"
-            height="210px"
-            width="250px"
-          />
-          <div class="card-body">
-            <p class="card-text"><%= student.name%></p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Class: <%= student.class %></li>
-            <li class="list-group-item">Batch: <%= student.batch %></li>
-            <li class="list-group-item">Marks: <%= student.marks %></li>
-            <li class="list-group-item">Marks: <%= student.board %></li>
-          </ul>
-          <form method="post" action="/students/<%= student._id %>?_method=DELETE">
-            <button class="btn btn-dark  stuDelBtn">Delete</button>
+        <% if (currUser && currUser.isAdmin) { %>
+        <div class="card-footer bg-transparent text-center">
+          <form
+            method="POST"
+            action="/students/<%= student._id %>?_method=DELETE"
+          >
+            <button class="btn btn-outline-danger btn-sm stuDelBtn">
+              Delete
+            </button>
           </form>
         </div>
-     
         <% } %>
       </div>
-  <% } %>  
-  <% if ((class10th && class10th.length > 0) || 
-       (class11th && class11th.length > 0) || 
-       (class12th && class12th.length > 0) || 
-       (classBCAth && classBCAth.length > 0)) { %>
-  <form action="/students/add" method="GET">
-    <button class="btn btn-dark addbtn">Add student</button>
-  </form>
-<% } %>
+      <% } %>
+    </div>
+    <% } %> <% if (class12th && class12th.length > 0) { %>
+    <h3 class="text-center mt-5 mb-3 text-primary">Class 12th Students</h3>
+    <div class="subContainer">
+      <% for (let student of class12th) { %>
+      <div
+        class="card stuBox shadow-sm border-0 m-3"
+        style="width: 18rem; border-radius: 15px; overflow: hidden"
+      >
+        <img
+          src="<%= student.image.url %>"
+          class="card-img-top stuimage"
+          alt="student image"
+          style="
+            height: 210px;
+            object-fit: cover;
+            border-bottom: 5px solid green;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+          "
+        />
 
+        <div class="card-body text-center">
+          <h5 class="card-title fw-semibold mb-1"><%= student.name %></h5>
+          <p class="text-muted small mb-0">Class: <%= student.class %></p>
+          <p class="text-muted small mb-0">Batch: <%= student.batch %></p>
+          <p class="text-muted small mb-0">Marks: <%= student.marks %></p>
+          <p class="text-muted small">Board: <%= student.board %></p>
+        </div>
+        <% if (currUser && currUser.isAdmin) { %>
+        <div class="card-footer bg-transparent text-center">
+          <form
+            method="POST"
+            action="/students/<%= student._id %>?_method=DELETE"
+          >
+            <button class="btn btn-outline-danger btn-sm stuDelBtn">
+              Delete
+            </button>
+          </form>
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+    <% } %> <% if (classBCAth && classBCAth.length > 0) { %>
+    <h3 class="text-center mt-5 mb-3 text-primary">BCA Students</h3>
+    <div class="subContainer">
+      <% for (let student of classBCAth) { %>
+      <div
+        class="card stuBox shadow-sm border-0 m-3"
+        style="width: 18rem; border-radius: 15px; overflow: hidden"
+      >
+        <img
+          src="<%= student.image.url %>"
+          class="card-img-top stuimage"
+          alt="student image"
+          style="
+            height: 210px;
+            object-fit: cover;
+            border-bottom: 5px solid green;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+          "
+        />
+
+        <div class="card-body text-center">
+          <h5 class="card-title fw-semibold mb-1"><%= student.name %></h5>
+          <p class="text-muted small mb-0">Class: <%= student.class %></p>
+          <p class="text-muted small mb-0">Batch: <%= student.batch %></p>
+          <p class="text-muted small mb-0">Marks: <%= student.marks %></p>
+          <p class="text-muted small">Board: <%= student.board %></p>
+        </div>
+        <% if (currUser && currUser.isAdmin) { %>
+        <div class="card-footer bg-transparent text-center">
+          <form
+            method="POST"
+            action="/students/<%= student._id %>?_method=DELETE"
+          >
+            <button class="btn btn-outline-danger btn-sm stuDelBtn">
+              Delete
+            </button>
+          </form>
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+    <% } %>
+     
+     <% if (currUser && currUser.isAdmin) { %>
+    <form action="/students/add" method="GET">
+      <button class="btn btn-dark addbtn">Add Student</button>
+    </form>
+    <% } %> 
   </div>
 </body>
 
-
 <style>
- .subContainer{
-  display: flex;
-  flex-wrap: wrap;
+  .subContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
- }
- .addbtn{
-  margin-left: 45%;
- }
+  .stuBox {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .stuBox:hover {
+    transform: translateY(-5px);
+  }
+
+  .addbtn {
+    margin: 40px auto;
+    display: block;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-footer {
+    border-top: none;
+  }
+
+  .stuDelBtn {
+    width: 80%;
+  }
+  .stuBox {
+    transition: transform 0.2s ease-in-out;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+  }
+
+  .stuBox:hover {
+    transform: scale(1.03);
+  }
+  h3.text-primary {
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: #007BFF;
+}
+.addbtn, .stuDelBtn {
+  border-radius: 25px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.addbtn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.stuDelBtn {
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}
+
+.stuDelBtn:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
 </style>

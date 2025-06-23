@@ -25,7 +25,6 @@ const validateListing = (req, res, next) => {
 
 //home page route
 router.get("/home", listingController.renderhome);
-
 //  <-----upload file concept from -yt channel -> Piyush Garg---->
 
 // Upload route

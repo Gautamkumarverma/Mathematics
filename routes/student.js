@@ -5,7 +5,7 @@ const ExpressError = require("../utils/ExpressError.js");
 const { studentSchema } = require("../schem2.js");
 const Student = require("../models/students.js");
 const studentController = require("../controller/student.js");
-
+const { isLoggedIn, isAdmin } = require("../middleware.js");
 const multer = require("multer");
 const { storage } = require("../cloud-Config.js");
 const upload = multer({ storage });
@@ -31,9 +31,11 @@ router
   .post(
     upload.single("student[image]"),
     validateStudent,
+    isLoggedIn,
+    isAdmin,
     wrapAsync(studentController.addStudent)
   );
 
 // delete student  -> router
-router.delete("/:id", studentController.destroyStudent);
+router.delete("/:id", isLoggedIn, isAdmin, studentController.destroyStudent);
 module.exports = router;

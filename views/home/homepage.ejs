@@ -1,9 +1,9 @@
 <% layout("/layouts/boilerplate") -%>
 
     <body>
-
-
+       
         <div class="homePage">
+           
             <h1>
                 Welcome To
                 <br>
@@ -28,6 +28,55 @@
 
             </div>
         </div>
+             <!-- New code  for videos yt-->
+        <!-- Container to show videos -->
+   <div id="videos">
+
+        <script>
+        const API_KEY = "AIzaSyBW61sb_oUA1RNr38RApbFx5XD5IFKiOfc";
+        const CHANNEL_ID = "UCQgDZRbDgl6JJfS9NzSyG6Q";
+
+        async function loadVideos() {
+            try {
+            // Step 1: Get Uploads playlist ID from the channel
+            const channelRes = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${"UCQgDZRbDgl6JJfS9NzSyG6Q"}&key=${"AIzaSyBW61sb_oUA1RNr38RApbFx5XD5IFKiOfc"}`);
+            const channelData = await channelRes.json();
+
+            const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+
+            // Step 2: Get videos from the uploads playlist
+            const videosRes = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${"PLuiVMOzrmIK9yvtw3a1UqZ0Zz4-qS6hti"}&key=${"AIzaSyBW61sb_oUA1RNr38RApbFx5XD5IFKiOfc"}`);
+            const videosData = await videosRes.json();
+
+            const container = document.getElementById("videos");
+
+            if (!videosData.items || videosData.items.length === 0) {
+                container.innerHTML = "<p>No videos found on the channel.</p>";
+                return;
+            }
+
+            videosData.items.forEach(video => {
+                const videoId = video.snippet.resourceId.videoId;
+                const iframe = document.createElement("iframe");
+                iframe.width = "300";
+                iframe.height = "170";
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                iframe.frameBorder = "0";
+                iframe.allowFullscreen = true;
+                iframe.style.margin = "10px";
+                container.appendChild(iframe);
+            });
+            } catch (error) {
+            console.error("Error loading videos:", error);
+            document.getElementById("videos").innerHTML = "<p>Error loading videos.</p>";
+            }
+        }
+
+        loadVideos();
+        </script>
+   </div> 
+
+ <!-- <--------video code end ------>
         <section class="subsSec">
           
                 <h4 style="margin-left: 25%;">Jharkhand's Most Loved Educational platform <i class="fa-solid fa-heart"></i></h4>
@@ -46,10 +95,13 @@
                     <span>Total videos</span>  &nbsp;<i class="fa-solid fa-video"></i>
                     <div id="videoCount"></div>
                 </div>
+               
 
             </div>
+          
         </section>
-
+   
+  <br>
         <script>
             // <----------text javaScipt code -learn yt -CodingLab----->
                 // <----Multiple text typing----->

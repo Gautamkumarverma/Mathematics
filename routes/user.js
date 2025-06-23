@@ -10,6 +10,7 @@ const userCoroller = require("../controller/user.js");
 
 // signup render form  ->route
 // sign route
+
 router
   .route("/signup")
   .get((req, res) => {

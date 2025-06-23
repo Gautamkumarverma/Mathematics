@@ -1,46 +1,52 @@
+const { isAdmin, isLoggedIn } = require("../middleware");
 const Listing = require("../models/listing");
 
 module.exports.renderhome = (req, res) => {
   res.render("home/homepage.ejs");
 };
-module.exports.uploadPdf = async (req, res) => {
-  const { title, class: classField, subject } = req.body;
-  let url = req.file.path;
-  let filename = req.file.filename;
-  console.log(url, "...", filename);
 
-  const sampleListing = new Listing({
-    title: title,
-    class: classField,
-    subject: subject,
-  });
-  filename += ".pdf";
-  console.log("new filename:", filename);
-  sampleListing.pdflink = { url, filename };
-  await sampleListing.save();
-  console.log("pdf url", url);
-  console.log("cloudianry url", sampleListing.pdflink.url);
-  req.flash("success", "pdf uploded successfully!");
-  // Redirect to /showPdf with classField as query parameter
-  res.redirect(`/showPdf?classField=${encodeURIComponent(classField)}`);
-};
+(module.exports.uploadPdf = isLoggedIn),
+  isAdmin,
+  async (req, res) => {
+    const { title, class: classField, subject } = req.body;
+    let url = req.file.path;
+    let filename = req.file.filename;
+    console.log(url, "...", filename);
 
-module.exports.destroyPdf = async (req, res) => {
-  const { id } = req.params;
-  const listingToDelete = await Listing.findById(id);
-
-  if (listingToDelete) {
-    const classField = listingToDelete.class;
-    await Listing.findByIdAndDelete(id);
-
+    const sampleListing = new Listing({
+      title: title,
+      class: classField,
+      subject: subject,
+    });
+    filename += ".pdf";
+    console.log("new filename:", filename);
+    sampleListing.pdflink = { url, filename };
+    await sampleListing.save();
+    console.log("pdf url", url);
+    console.log("cloudianry url", sampleListing.pdflink.url);
+    req.flash("success", "pdf uploded successfully!");
     // Redirect to /showPdf with classField as query parameter
-    req.flash("success", "pdf deleted successfully!");
-
     res.redirect(`/showPdf?classField=${encodeURIComponent(classField)}`);
-  } else {
-    res.send("Listing not found.");
-  }
-};
+  };
+
+(module.exports.destroyPdf = isLoggedIn),
+  isAdmin,
+  async (req, res) => {
+    const { id } = req.params;
+    const listingToDelete = await Listing.findById(id);
+
+    if (listingToDelete) {
+      const classField = listingToDelete.class;
+      await Listing.findByIdAndDelete(id);
+
+      // Redirect to /showPdf with classField as query parameter
+      req.flash("success", "pdf deleted successfully!");
+
+      res.redirect(`/showPdf?classField=${encodeURIComponent(classField)}`);
+    } else {
+      res.send("Listing not found.");
+    }
+  };
 
 module.exports.showlevel1 = async (req, res) => {
   res.render("home/showpdflavel1.ejs");

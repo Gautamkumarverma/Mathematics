@@ -1,0 +1,166 @@
+<% layout('/layouts/boilerplate') -%>
+
+<style>
+  body {
+    background: linear-gradient(to right, #dbeafe, #ede9fe);
+    font-family: Arial, sans-serif;
+  }
+
+  .course-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .course-card {
+    width: 280px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.2s;
+  }
+
+  .course-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .course-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .course-description {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+
+  .course-price {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .course-discount {
+    color: #22c55e;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+  .course-thumbnail,
+  .video-iframe,
+  .course-placeholder {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .course-thumbnail {
+    object-fit: cover;
+  }
+
+  .course-placeholder {
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .get-button {
+    display: block;
+    margin-top: 12px;
+    background: #0ea5e9;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .get-button:hover {
+    background: #06a50b;
+  }
+
+  .add_Cou_button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .no-course-message {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px;
+    background-color: #fef9c3;
+    border: 2px dashed #facc15;
+    border-radius: 12px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    color: #92400e;
+  }
+
+  .no-course-message h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .no-course-message p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+</style>
+
+<h1 style="text-align:center; margin-top: 20px;">All Courses</h1>
+
+<% if (courses.length > 0) { %>
+  <div class="course-container">
+    <% courses.forEach(course => { %>
+      <div class="course-card">
+        <div class="course-title"><%= course.title %></div>
+        <div class="course-description"><%= course.description %></div>
+
+        <% if (course.videoUrl) { %>
+          <iframe class="video-iframe" src="<%= course.videoUrl %>" frameborder="0" allowfullscreen></iframe>
+        <% } else if (course.thumbnail) { %>
+          <img class="course-thumbnail" src="<%= course.thumbnail %>" alt="Course thumbnail">
+        <% } else { %>
+          <div class="course-placeholder">No video or thumbnail</div>
+        <% } %>
+
+        <div class="course-price">₹ <%= course.price %></div>
+        <div class="course-discount">Discount: <%= course.discount %></div>
+
+        <a class="get-button" href="<%= course.videoUrl || '#' %>" target="_blank">Get this course</a>
+
+        <% if (currUser && currUser.isAdmin) { %>
+          <form action="/courses/<%= course._id %>?_method=DELETE" method="POST">
+            <button type="submit" class="get-button" style="background-color: #ef4444;">🗑 Delete</button>
+          </form>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+<% } else { %>
+  <div class="no-course-message">
+    <h2>No Courses Available</h2>
+    <p>We’re working on uploading more content. Please check back soon!</p>
+  </div>
+<% } %>
+
+<% if (currUser && currUser.isAdmin) { %>
+  <div class="add_Cou_button">
+    <a href="/courses/new" class="get-button" style="background-color: rgb(13, 220, 99); width: 200px;">
+      ➕ Add Course
+    </a>
+  </div>
+<% } %>

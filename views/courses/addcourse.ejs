@@ -1,0 +1,18 @@
+
+<% layout('layouts/boilerplate') %>
+
+<div class="add-course-form">
+  <h1>Add New Course</h1>
+
+  <form action="/courses" method="POST">
+    <input type="text" name="course[title]" placeholder="Course title" required />
+    <input type="text" name="course[description]" placeholder="Description" />
+    <input type="text" name="course[videoUrl]" placeholder="YouTube Video URL" />
+    <input type="text" name="course[thumbnail]" placeholder="Thumbnail Image URL" />
+    <input type="number" name="course[price]" placeholder="Price" />
+    <input type="text" name="course[discount]" placeholder="Discount (e.g. 20% OFF)" />
+    <input type="text" name="course[labels]" placeholder="Labels (comma separated)" />
+    <button type="submit">Create Course</button>
+  </form>
+</div>
+<!-- https://img.youtube.com/vi/Rr_RcMSTMoU/default.jpg -->

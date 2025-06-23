@@ -13,20 +13,22 @@ const Student = require("./models/students.js");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const Joi = require("joi");
-
+const fs = require("fs");
 const listingRoute = require("./routes/listing.js");
 const studentRoute = require("./routes/student.js");
 const userRoute = require("./routes/user.js");
-
+const courseRoute = require("./routes/course.js");
+const { isLoggedIn, isAdmin } = require("./middleware.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 const methodOverride = require("method-override");
-const MONGO_URl = "mongodb://127.0.0.1:27017/team";
-
+// const MONGO_URl = "mongodb://127.0.0.1:27017/team";
+const dburl = process.env.ATLASBD_URL;
 main()
   .then(() => {
     console.log("conected to DB");
@@ -34,7 +36,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(MONGO_URl);
+  await mongoose.connect(dburl);
 }
 
 app.engine("ejs", ejsMate);
@@ -43,17 +45,31 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 
 //serve static files
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "/public")));
+
 app.use("/documents", express.static(path.join(__dirname, "documents")));
 
 app.use(express.static(path.join(__dirname, "pages")));
 
 app.use(methodOverride("_method"));
 
+const store = MongoStore.create({
+  mongoUrl: dburl,
+  secret: process.env.SECRET,
+  touchAfter: 24 * 3600,
+});
+store.on("error", () => {
+  console.log("Error in session store", err);
+});
 const sessionOptions = {
-  secret: "mysupersecretkey",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -96,64 +112,19 @@ async function fetchListingsByClass(classField) {
     },
   ]);
   return listings[0];
-
-  //  <---------  we can replace above code with this code----------->
-
-  // // Retrieve all listings by subject to pass to showpdf.ejs
-  //   const allMathsListings = await Listing.find({
-  //     class: classField,
-  //     subject: "Maths",
-  //   });
-  //   const allPhysicsListings = await Listing.find({
-  //     class: classField,
-  //     subject: "Physics",
-  //   });
-  //   const allChemistryListings = await Listing.find({
-  //     class: classField,
-  //     subject: "Chemistry",
-  //   });
-  //   const allBiologyListings = await Listing.find({
-  //     class: classField,
-  //     subject: "Biology",
-  //   });
-
-  //   res.render("home/showpdf.ejs", {
-  //     allMathsListings,
-  //     allPhysicsListings,
-  //     allChemistryListings,
-  //     allBiologyListings,
-  //   });
 }
 
-app.get("/os/page1", (req, res) => {
-  res.render("documents/Os/pp/os.ejs");
+app.get("/os", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "check", "Os", "os.html"));
 });
-
-app.get("/views/documents/Networking/pp/networking.ejs", (req, res) => {
-  res.render("documents/Networking/pp/networking.ejs");
+app.get("/networking", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "public", "check", "Networking", "networking.html")
+  );
 });
-
-app.get("/views/documents/Dbms/pp/db.ejs", (req, res) => {
-  res.render("documents/Dbms/pp/db.ejs");
+app.get("/dbms", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "check", "Dbms", "dbms.html"));
 });
-
-app.get("/views/documents/Os/pp/os.ejs", (req, res) => {
-  res.render("documents/Os/pp/os.ejs");
-});
-
-// Dynamic route for topics
-app.get("/views/documents/:topic/pages/:page", (req, res) => {
-  const { topic, page } = req.params;
-  const filePath = `documents/${topic}/pages/${page}.ejs`;
-
-  res.render(filePath, (err, html) => {
-    if (err) {
-      return res.status(404).send("Page not found");
-    }
-    res.send(html);
-  });
-});
-
 // Route to fetch listings by class and render showpdf.ejs
 app.get(
   "/showPdf",
@@ -171,19 +142,23 @@ app.get(
 app.get("/", (req, res) => {
   res.render("home/homepage.ejs");
 });
-
-app.get("/demouser", async (req, res) => {
-  const fakeUser = new User({
-    email: "demouser@gmail.com",
-    username: "demouser",
-  });
-
-  let registereduser = await User.register(fakeUser, "helloworld");
-  res.send(registereduser);
+app.get("/makeadmin/:username", isAdmin, async (req, res) => {
+  const user = await User.findOne({ username: req.params.username });
+  if (user) {
+    user.isAdmin = true;
+    await user.save();
+    req.flash("success", `${user.username} is now an admin.`);
+    res.redirect("/"); // or wherever you want
+  } else {
+    req.flash("error", "User not found.");
+    res.redirect("/");
+  }
 });
+//middleware section
 app.use("/listings", listingRoute);
 app.use("/students", studentRoute);
 app.use("/", userRoute);
+app.use("/courses", courseRoute);
 //privacy route
 app.get("/conditions/privacy", (req, res) => {
   res.render("conditions/privacy.ejs");
@@ -201,6 +176,6 @@ app.use((err, req, res, next) => {
   let { statusCode = 500, message = "something went wrong!" } = err;
   res.render("error.ejs", { message });
 });
-app.listen(5000, () => {
-  console.log("server is listining to port 5000");
+app.listen(3000, () => {
+  console.log("server is listining to port 3000");
 });

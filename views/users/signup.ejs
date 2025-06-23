@@ -1,47 +1,67 @@
 <% layout("/layouts/boilerplate") -%>
 
-    <div class="row mt-3">
-        <h1 class="col-8 offset-3">SignUp on Mathematics team</h1>
-        <div class="col-6 offset-3">
-     <form action="/signup" method="POST" class="needs-validation" novalidate>
-   
-        <div class="mb-3">
-            <label for="username" class="form-table">Username:</label>
-            <br />
-            <input
-              type="text"
-              name="username"
-              placeholder="Enter username"
-              class="form-control"
-             required
-            />
+<div class="row mt-3">
+  <h1 class="col-8 offset-3">SignUp on Mathematics team</h1>
+  <div class="col-6 offset-3">
+    <form action="/signup" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-table">Username:</label>
+        <br />
+        <input
+          type="text"
+          name="username"
+          placeholder="Enter username"
+          class="form-control"
+          required
+        />
         <div class="valid-feedback">Looks good!</div>
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-table">Email:</label>
-            <br />
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              class="form-control"
-             required
-            />
-      
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-table">Password:</label>
-            <br />
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              class="form-control"
-             required
-            />
-      
-          </div>
-          <button class="btn btn-success">SignUp</button>
-     </form>
-        </div>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-table">Email:</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Enter email"
+          class="form-control"
+          required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          oninvalid="this.setCustomValidity('Please enter a valid email address like user@example.com')"
+          oninput="this.setCustomValidity('')"
+        />
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+      </div>
+
+     <div class="mb-3">
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      class="form-control"
+      placeholder="Enter password"
+      required
+      pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$%#&]).{8,}$"
+    />
+    <div class="invalid-feedback">
+      Password must be at least 8 characters, include a letter, a number, and one special character (@ $ % # &).
     </div>
+  </div>
+
+
+      <button class="btn btn-success">SignUp</button>
+    </form>
+  </div>
+</div>
+<script>
+  (() => {
+    const form = document.querySelector("#signupForm");
+    form.addEventListener("submit", function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add("was-validated");
+    });
+  })();
+</script>
